@@ -8,6 +8,7 @@ const authMiddleware = require("./middleware/authMiddleware");
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -27,7 +28,7 @@ app.use("/resources", express.static(__dirname + "/resources"));
 
 // Protected resources API
 app.get("/api/resources", authMiddleware, (req, res) => {
-  const host = `${req.protocol}://${req.get("host")}`;
+  const host = `${req.protocol}://${req.get("host")}`; // dynamic host for deployment
   res.json([
     {
       category: "Data Structures",
@@ -48,7 +49,7 @@ app.get("/api/resources", authMiddleware, (req, res) => {
   ]);
 });
 
-// Start server on Render-assigned PORT
+// Start server on Render dynamic port
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
